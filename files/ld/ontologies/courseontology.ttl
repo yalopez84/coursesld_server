@@ -1,0 +1,79 @@
+
+@base <http://localhost:3000/ld.uci.cu/course/ontology/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix status: <http://www.w3.org/2003/06/sw-vocab-status/ns#>.
+@prefix teach:  <http://linkedscience.org/teach/ns#>.
+@prefix aiiso: <http://purl.org/vocab/aiiso/schema#>.
+@prefix dcterm: <http://purl.org/dc/terms/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix cc: <http://creativecommons.org/ns#>.
+@prefix vann: <http://purl.org/vocab/vann/>.
+@prefix geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#>.
+@prefix dbpedia: <http://dbpedia.org/ontology/>.
+@prefix gn:  <http://www.geonames.org/ontology#>.
+
+
+<http://ld.uci.cu/course/ontology>    						rdf:type 		     foaf:Document;
+								      foaf:primaryTopic <http://ld.uci.cu/course/ontology#>;
+								      dcterm:issued "2020-11-25T00:00:00Z"^^xsd:dateTime;
+								      dcterm:modified "2021-04-02T00:00:00Z"^^xsd:dateTime;
+								      cc:license <http:creativecommons.org/licenses/by/3.0/>;
+								      cc:rights "Copyright 2014-Open Transport contributors";
+								      dcterm:language <http://id.loc.gov/vocabulary/iso639-1/en>.
+
+<http://ld.uci.cu/course/ontology> 				         rdf:type owl:Ontology;
+								      dcterm:title "The aux ontology for the University of the Informatics Science"@en;
+								      dcterm:title "La ontologia auxiliar para la UCI@es;	
+								      rdfs:label "Terms for describing courses at the UCI"@en;
+								      rdfs:label "Terminos para describir los cursos en la UCI"@es;
+							              dcterm:description "Ontology for describing auxiliar terms"@en;
+								      dcterm:description "Ontologia para describir terminos auxiliares"@es;
+								      vann:preferredNamespacePrefix "course";
+								      vann:preferredNamespaceURI "http://ld.uci.cu/course/ontology#";
+								      dcterm:creator [ foaf:mbox "yalopez@uci.cu";
+										       foaf:name "Yoan Antonio Lopez Rodriguez"].
+										       
+<#TeachingMethod>						             rdf:type rdfs:Class;   
+								      status:term_status "stable"@en;
+								      status:term_status "estable"@es;
+								      rdfs:label "Teaching Method"@en;
+								      rdfs:label "Metodo de enseñanza"@es.
+				 				      
+<#AssessmentMethod>					                 rdf:type rdfs:Class;   
+								      status:term_status "stable"@en;
+								      status:term_status "estable"@es;
+								      rdfs:label "Assessment Method"@en;
+								      rdfs:label "Metodo de evaluacion"@es.
+								      
+<#hasTeachingMethod>					      rdf:type rdf:Property;
+								      rdfs:subPropertyOf teach:hasTeachingMethod;
+								      rdfs:domain teach:Course;             
+								      rdfs:range course:TeachingMethod;
+								      status:term_status "stable"@en;
+								      status:term_status "estable"@es;
+								      rdfs:label "Relation with TeachinMethod"@en;
+								      rdfs:label "Relacion con el metodo de enseñanza"@es;
+								      rdfs:comment "Relation between a course and a teachinmethod"@en;
+								      rdfs:comment "Relacion entre un curso y un metodo de enseñanza"@es.	
+								      
+<#level>							      rdf:type rdf:Property;             
+								      rdfs:domain teach:Course;             
+								      rdfs:range xsd:string ;
+								      status:term_status "stable"@en;
+								      status:term_status "estable"@es;
+								      rdfs:label "Course level"@en;
+								      rdfs:label "Nivel del curso"@es;
+								      rdfs:comment "Different levels such as basic, intermedium and advance"@en;
+								      rdfs:comment "Niveles tales como basico, intermedio y avanzado"@es. 												
+<#numberOfCredits>						      rdf:type rdf:Property ;              
+								      rdfs:domain teach:Course;              
+														rdfs:range xsd:integer ;
+														status:term_status "stable"@en;
+														status:term_status "estable"@es;
+														rdfs:label "Credit number"@en;
+														rdfs:label "Numero de creditos"@es;
+														rdfs:comment "Credit number a studen receives when he/she passes a course"@en.

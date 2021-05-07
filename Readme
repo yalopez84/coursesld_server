@@ -1,0 +1,80 @@
+Componente: coursesld_server
+Dependencias: Componente rawdata_api
+Tecnologías: nodejs, express, morgan,
+Ficheros de configuración: 
+	-config_files/server_config.js 
+		module.exports = {
+		protocol: 'http',
+		hostname: 'localhost:3000',
+		port: 3000,
+		}
+	-skeleton.jsonld. Plantilla para el trabajo con el vocabulario Hydra.
+	-skeleton_tree.jsonld. Plantilla para el trabajo con el vocabulario Tree.
+
+Entrada: 
+	-files/raw_data/*.json. Datos de las entidades a ser transformados a datos enlazados. En este caso solo 	se necesita que exista el fichero files/raw_data/courses.json.
+	-files/ld/ontologies/courseontology.ttl. Ontología de los cursos utilizada en la transformación de los 	cursos a datos enlazados.
+	fragments/both/ y fragments/startDates son directorios que se necesitan para guardar los fragmentos de la consulta personalizada de los cursos.
+	-files/ld/, en este directorio se guardan los ficheros de datos enlazados.
+
+Salidas: 
+	-files/ld/nombreEntidad/nombreEntidad.jsonld, files/ld/nombreEntidad/nombreEntidad.ttl,   files/ld/nombreEntidad/nombreEntidad.n3, files/ld/nombreEntidad/nombreEntidad.csv.  Por cada entidad se obtiene su transformación a datos enlazados en 4 formatos (json ld, turtle, n triples y csv). En este caso solo se obtiene el dataset de los cursos.
+	-fragments/both/*, fragments/startDates/*. Cuando se consultan los cursos en formato jsonld, la interfaz optimizada que se ha implementado en el servidor fragmento el dataset y guarda los fragmentos en estas direcciones.
+Objetivos: Publicar las entidades de la universidad de las ciencias informáticas como datos enlazados. En este caso los cursos.
+Explicación del componente
+	-Constituye un componente de back end para publicar los cursos  de la Universidad de las Ciencias 	Informáticas como datos enlazados para ser consumidos por aplicaciones clientes dentro de ellas las 	aplicaciones recomendadores de cursos.
+	-Se parte de un fichero src/index.js que constituye el punto de entrada del componente, un fichero 	src/app.js donde se configuran los prefijos de las url de cada uno de los módulos del API.
+	-Al acceder a la url home del componente http://hostname/ld/ se muestra en la pagina el catalogo de 	los datasets enlazados de la plataforma (en este caso solo se presenta el dataset de los cursos). A la 	vez se realiza la transformación de los datos de raw data a datos enlazados y se almacenan en la 	carpeta files/ld/*. Por cada tipo de entidad que se transforma se obtienen los ficheros en los 4 	formatos (jsonld, ttl, n3 y csv). En este caso solo se obtienen los ficheros de los cursos.
+	-A los datasets de datos enlazados se puede acceder desde el catálogo en el home de la aplicación 	http://hostname/ld/ donde aparecen las url de acceso de los datasets, sus distribuciones para el 	acceso a sus datos o accediendo directamente a 	la url  http://hostname/ld/nombredeentidadenplural.
+	-En el acceso a los dataset se pueden solicitar sus diferentes formatos a partir de la negociación de 	contenidos. Para ello se tienen las siguientes variantes request=>response: ”text/plain”=>ttl, 	”text/n3”=> n3, ”text/csv”=>csv, ”application/json”=>jsonld. Ejemplo para acceder al dataset de los 	cursos, url: http://localhost:3000/ld/courses, en dependencia del valor del Accept en el request de la 	petición se obtiene el dataset en el formato correspondiente.
+	-Para la consulta del dataset en el formato jsonld se tiene una consulta optimizada con el objetivo de 	evitar sobrecargas de memoria y contribuir a la reutilización de los datos, donde el cliente 	puede precisar una fecha en la url de la petición, para solicitar los cursos que comiencen a partir de esa fecha y un subject. Para ello se tiene la plantilla de la URL http://hostname/ld/courses?startDate={startDateQuery}&subject={subjectQuery}. Los cursos resultantes de la consulta son ordenados 	de forma ascendente por el campo fecha de inicio y divididos en fragmentos de no más de 100 	cursos. 	Utilizando el vocabulario Tree, el cliente es capaz de acceder a cada uno de los fragmentos.
+	-El servidor aprovecha la fragmentación realizada para atender otras peticiones con iguales urls. El 	tiempo de duración de la fragmentacion está en correspondencia con la caché del servidor.
+	-Los fragmentos en el servidor son almacenados en dos destinos posibles, i) si la URL template 	comprende los campos startDate y subject o solo el campo subject, en el directorio fragments/both/ 	se crea un directorio cuyo  nombre es el valor del campo  startDate (se utilizara la fecha actual en la 	consulta cuando no se explicite el campo startDate en la consulta) y dentro se crea otro directorio 	cuyo nombre es el valor del campo subject donde son almacenados los fragmentos., ii) si la URL 	template comprende solo el campo startDate, en el directorio fragments/startDates/ se crea un 	directorio cuyo nombre es el valor del campo startDate donde son almacenados los fragmentos. 
+
+Pendiente
+	-Interfaz visual del componente
+	-Separación de los componentes y subida del código a repositorios.
+	-De alguna manera debo explicar en el catalogo dcat la manera de utilizar la URI template, es decir 	que un cliente conozca a partir de ver el dataset de cursos en el catalogo que la URI template abarca 	un campo startDate, etc. del dataset 	de los cursos. Creo que es en el campo conforme que se 	pone la explicación Hydra de la API o algo 	semejante en Tree.
+	-En la implementación del ldcourse.controller cuando me quedo con los cursos por subject o a partir de la fecha, probar usando las funciones map o filter sobre los arreglos.
+
+Manual de instalación
+	-Carpeta del proyecto  coursesld_server abierta en el visual studio code
+	-Crear fichero package.json del proyectos
+		npm init -y
+	-Instalamos las dependencias del proyecto
+		npm install @babel/polyfill // babel es un compilador de código para java script
+		npm install express
+		npm install morgan 
+		npm install --save-dev @babel/core @babel/cli @babel/preset-env  //relacionadas con babel
+		npm install nodemon -D  //dependencias para el desarrollo
+		npm install @babel/node -D //dependencias para el desarrollo
+		npm install n3
+	-Se crea el fichero .babelrc con el código que aparece abajo para especificarle a babel que se va a 	traducir código java script moderno
+		{
+		    "presets": [
+  		      "@babel/preset-env"
+  		  ]
+		} 
+	-Creamos la carpeta src en el proyecto y dentro un fichero index.js con el codigo siguientes
+	-Reemplazamos en el fichero package.json lo siguiente
+		"test": "echo \"Error: no test specified\" && exit 1" //Reemplazar por lo de abajo
+			"dev":"nodemon src/index.js --exec babel-node",  
+			"build": "babel src --out-dir dist",  
+			"start":"node dist/index.js"	//ejecutar para poner en producción
+	-Con las tres líneas incorporadas se expresa: i) en etapa de desarrollo, lo que se ejecutaría con 	nodemon ahora ejecutarlo con 	babel-node, ii) que el código desarrollado en el directorio “src” irá 	compilado para el directorio “dir” como código para producción, iii) Ejecutar en producción el 	código compilado que aparece en el directorio “dir”.
+	-Probar la aplicación, ejecutar en consola
+		npm run dev
+	-Copiando el código del proyecto que incluye las carpetas y ficheros siguientes:
+		dist
+		config_files(server_config.js, skeleton_tree.jsonld, skeleton.jsonld)
+		files/raw_data (courses.json), 
+		files/ld, 
+		files/ld/ontologies/courseontology.ttl
+		fragments/both
+		fragments/startDates
+		public/courses_materials
+		sql(backup.sql, db.sql)
+		src(controllers , database, models, routes, app.js, index.js)
+	-Cuando se quiere poner en producción el código
+		npm run build //compilamos el código
+		npm start //ejecutamos el código compilado	

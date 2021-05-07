@@ -1,0 +1,143 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "teach": "http://linkedscience.org/teach/ns#",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "gn": "http://www.geonames.org/ontology/",
+    "dbpedia": "http://dbpedia.org/ontology/",
+    "aiiso": "http://purl.org/vocab/aiiso/schema#",
+    "dcterm": "http://purl.org/dc/terms/",
+    "course": "http://localhost:3000/ld/courses/ontology#",
+    "foaf": "http://xmlns.com/foaf/spec/#",
+    "cc": "http://creativecommons.org/ns#",
+    "hydra": "http://www.w3.org/ns/hydra/core#",
+    "teach:Course": {
+      "@type": "@id"
+    },
+    "weeklyHours": {
+      "@id": "teach:weeklyHours",
+      "@type": "xsd:integer"
+    },
+    "title": {
+      "@id": "teach:courseTitle",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "teach: courseDescription",
+      "@type": "xsd:string"
+    },
+    "teach:academicTerm": {
+      "@type": "@id"
+    },
+    "longitude": {
+      "@id": "geo:long",
+      "@type": "xsd:long"
+    },
+    "latitude": {
+      "@id": "geo:lat",
+      "@type": "xsd:long"
+    },
+    "startDate": {
+      "@id": "dbpedia: startDate",
+      "@type": "xsd:dateTime"
+    },
+    "subject": {
+      "@id": "dcterm:subject",
+      "@type": "xsd:string"
+    },
+    "endDate": {
+      "@id": "dbpedia: endDate",
+      "@type": "xsd:dateTime"
+    },
+    "numberOfCredits": {
+      "@id": "course:numberOfCredits",
+      "@type": "xsd:integer"
+    },
+    "level": {
+      "@id": "course:level",
+      "@type": "xsd:string"
+    },
+    "course:relatedToInstitution": {
+      "@type": "@id"
+    },
+    "course:relatedToFaculty": {
+      "@type": "@id"
+    },
+    "course:relatedToDepartment": {
+      "@type": "@id"
+    },
+    "course:relatedToMaterial": {
+      "@type": "@id"
+    },
+    "course:relatedToStudent": {
+      "@type": "@id"
+    },
+    "teach:building": {
+      "@type": "@id"
+    },
+    "teach:room": {
+      "@type": "@id"
+    },
+    "gn:parentCountry": {
+      "@type": "@id"
+    },
+    "dcterm:language": {
+      "@type": "@id"
+    },
+    "teach:teacher": {
+      "@type": "@id"
+    },
+    "dcterm:subject": {
+      "@type": "@id"
+    },
+    "course:hasTeachingMethod": {
+      "@type": "@id"
+    },
+    "course:assessmentMethod": {
+      "@type": "@id"
+    },
+    "teachingLevel": {
+      "@id": "course:teachingLevel",
+      "@type": "xsd:string"
+    },
+    "cc:license": {
+      "@type": "@id"
+    },
+    "hydra:next": {
+      "@type": "@id"
+    },
+    "hydra:previous": {
+      "@type": "@id"
+    },
+    "hydra:property": {
+      "@type": "@id"
+    },
+    "hydra:variableRepresentation": {
+      "@type": "@id"
+    }
+  },
+  "@id": "",
+  "@type": "hydra:PartialCollectionView",
+  "hydra:next": "",
+  "hydra:previous": "",
+  "hydra:search": {
+    "@type": "hydra:IriTemplate",
+    "hydra:template": "",
+    "hydra:variableRepresentation": "hydra:BasicRepresentation",
+    "hydra:mapping": [
+      {
+        "@type": "IriTemplateMapping",
+        "hydra:variable": "startDate",
+        "hydra:required": true,
+        "hydra:property": "course:startDateQuery"
+      },
+      {
+        "@type": "IriTemplateMapping",
+        "hydra:variable": "subject",
+        "hydra:required": true,
+        "hydra:property": "course:subjectQuery"
+      }
+    ]
+  },
+  "@graph": []
+}
