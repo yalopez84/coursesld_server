@@ -33,7 +33,7 @@
     
 #### Explanation
 	-This is a back-end component to publish university courses as linked data in order for being consumed by client apps 
-	such as course recommender apps. 
+	such as course recommenders. 
 	
 	-The entrypoint src/index.js file calls src/app.js where prefixes of each module of the API are set up.
 	
