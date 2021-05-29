@@ -52,9 +52,10 @@
 	”text/csv”=>"csv", ”"application/json”=>"jsonld". In order to text that, you can use Insomnia tool
 	(https://insomnia.rest/download).
 	
-	-When the client requests the JSON LD format, a customized query attends it which is a proof of concept in order to show the benefits 
-	that this kind of query can provide for courses recommender apps. The URL template of this customized query 
-	is http://hostname/ld/courses?startDate={startDateQuery}&subject={subjectQuery},e.g http://localhost:4000/ld/courses?startdate=2011-11-11&subject=educational_informatics.
+	-When the client requests the JSON LD format, a customized interface attends it which is a proof of concept in order to show the benefits 
+	that this kind of interfaces can provide to courses recommender apps. The URL template of this customized query 
+	is http://hostname/ld/courses?startDate={startDateQuery}&subject={subjectQuery},
+	e.g http://localhost:4000/ld/courses?startdate=2011-11-11&subject=educational_informatics.
 	The variable startDate allows the client to query the server asking for courses that start thereafter and the variable subject 
 	allows to restrict the searching to courses with that subject. This component sorts the courses that meet the requirements in 
 	ascending order by start date and deliver them fragment by fragment. Automatic client-server communication can be carried out thanks 
