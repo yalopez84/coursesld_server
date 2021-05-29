@@ -42,7 +42,7 @@
 	At the same time, the server transforms raw data to linked data. For each transformed entity, 
 	four files are got(one for each serialization format JSON LD, ttl, n3 y csv) 
 	
-	-How to access the linked datasets? Datasets can be got from the catalog in the university home (http://hostname/ld/). 
+	-Linked datasets appear in the dataset catalog at the university home. 
 	The university catalog contains the dataset accessURl via dataset distributions. 
 	Datasets can be also got by clicking the URL http://hostname/ld/{entitynameinplural} for instance http://hostname/ld/courses.
 	
