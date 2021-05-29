@@ -23,8 +23,6 @@
 #### Input files 
 	-files/raw_data/{entityname}.json. Raw data of entities to be transformed in JSON format. In this case files/raw_data/courses.json.
 	-files/ld/ontologies/courseontology.ttl. Course ontology needed to transform course raw data to linked courses.
-	-fragments/both/ and fragments/startDates. Directories needed to save fragments of course customized query.
-	-files/ld/. Directory needed to save linked entities.
 
 #### Output files
 	-files/ld/entityname/entityname.jsonld, files/ld/entityname/entityname.ttl, files/ld/entityname/entityname.n3, files/ld/entityname/entityname.csv. Four formats are obtained (json ld, turtle, n triples y csv). In this case, course datset is the only transformed and four files of that dataset are obtained.
