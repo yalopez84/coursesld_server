@@ -44,7 +44,8 @@
 	
 	-Linked datasets appear in the dataset catalog at the university home. 
 	The university catalog contains the dataset accessURl via dataset distributions. 
-	Datasets can be also got by clicking the URL http://hostname/ld/{entitynameinplural} for instance http://hostname/ld/courses.
+	Datasets can be also got by clicking the URL http://hostname/ld/{entitynameinplural} 
+	for instance http://localhost:4000/ld/courses.
 	
 	-Clients can request the serialization formats via content negotiation. 
 	Possible "request=>response"(accept=>Content-Type) variants are: ”text/plain”=>"ttl", ”text/n3”=> "n3",
