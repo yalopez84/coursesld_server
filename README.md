@@ -70,7 +70,7 @@
     	is the value of the startDate. By default, current date will be assumed when this variable does not show up.
 	
 	-In order to automatize the client-server communication, Client apps can find how to interact with this server via the Hydra API documentation
-	http://{hostname}/ld/apiDocumentation that was implemented in this component.
+	http://localhost:4000/ld/apiDocumentation that was implemented in this component.
 #### Instalation steps
 	1. Install tecnologies
 		npm install @babel/polyfill 
