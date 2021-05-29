@@ -37,7 +37,7 @@
 	
 	-The entrypoint src/index.js file calls src/app.js where prefixes of each module of the API are set up.
 	
-	-When the client accesses the home http://hostname/ld/ (http://localhost:4000/ld/), datasets catalog is shown (In this case we only have the course dataset). 
+	-When the client accesses the home http://localhost:4000/ld, datasets catalog is shown (In this case we only have the course dataset). 
 	At the same time, the server transforms raw data to linked data. For each transformed entity, four files are got(one for each 
 	serialization format JSON LD, ttl, n3 y csv) 
 	
