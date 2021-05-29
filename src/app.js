@@ -6,7 +6,6 @@ const hostname = serverconfig.hostname;
 import ldRoutes from './routes/ld';
 import ldcourseRoutes from './routes/ldcourses';
 
-
 const app = express();
 
 app.use(morgan('dev'));

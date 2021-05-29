@@ -1,9 +1,10 @@
 import { Router } from 'express';
 const router = Router();
-import { getCatalog } from '../controllers/ld.controller';
+import { getCatalog, getAPIDocumentation } from '../controllers/ld.controller';
 
 
 router.get('/', getCatalog);
+router.get('/APIDocumentation', getAPIDocumentation);
 
 router.options('/*', (req, res) => {
     res.set({

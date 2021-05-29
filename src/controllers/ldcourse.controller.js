@@ -70,7 +70,7 @@ export async function getCourses(req, res) {
 
         let startDateQuery = new Date(req.query.startDate);
         if (startDateQuery.toString() === 'Invalid Date')
-            startDateQuery = new Date();
+            startDateQuery = new Date("2009");
 
         let subjectQuery = "";
         let subjectFlag = false;
@@ -168,8 +168,8 @@ export async function getCourses(req, res) {
             index: index,
             dir: dir_save_fragments
         }
-        //result = await addHydraMetada(params);
-        result = await addTreeMetada(params);
+        result = await addHydraMetada(params);
+        //result = await addTreeMetada(params);
         res.json(result);
     }
 }

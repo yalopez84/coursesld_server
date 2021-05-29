@@ -71,9 +71,24 @@
 								      rdfs:comment "Niveles tales como basico, intermedio y avanzado"@es. 												
 <#numberOfCredits>						      rdf:type rdf:Property ;              
 								      rdfs:domain teach:Course;              
-														rdfs:range xsd:integer ;
-														status:term_status "stable"@en;
-														status:term_status "estable"@es;
-														rdfs:label "Credit number"@en;
-														rdfs:label "Numero de creditos"@es;
-														rdfs:comment "Credit number a studen receives when he/she passes a course"@en.
+									  rdfs:range xsd:integer ;
+									  status:term_status "stable"@en;
+									  status:term_status "estable"@es;
+									  rdfs:label "Credit number"@en;
+									  rdfs:label "Numero de creditos"@es;
+									  rdfs:comment "Credit number a studen receives when he/she passes a course"@en.
+<#startDateQuery>					  		  rdf:type rdf:Property ;              
+								      rdfs:domain teach:Course;              
+									  rdfs:range xsd:dateTime;
+									  status:term_status "stable"@en;
+									  status:term_status "estable"@es;
+									  rdfs:label "Field to compare courses by start date"@en;
+									  rdfs:label "Campo para comparar cursos por la fecha de unicio"@es.
+<#subjectQuery >							 rdf:type rdf:Property ;              
+								      rdfs:domain teach:Course;              
+									  rdfs:range xsd:string ;
+									  status:term_status "stable"@en;
+									  status:term_status "estable"@es;
+									  rdfs:label "Field to compare courses by start date"@en;
+									  rdfs:label "Campo para comparar cursos por la fecha de unicio"@es.							 
+														

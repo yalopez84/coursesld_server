@@ -65,7 +65,40 @@ export async function getCatalog(req, res) {
             "@type": "Institution",
             "name": "University of the Informatics Science"
         },
-        "dataset": []
+        "dataset": [{
+            "@id": `http://${hostname}/ld/courses`,
+            "@type": "Dataset",
+            "subject": "Course",
+            "description": "Courses dataset of UCI",
+            "title": "Courses dataset of UCI",
+            "spatial": "",
+            "keyword": "course",
+            "conformsTo": `http://${hostname}/ld/APIDocumentation`,
+            "accessRights": "access:PUBLIC",
+            "license": "http://creativecommons.org/publicdomain/zero/1.0/",
+            /*"temporalRange": {
+                "@type": "TimePeriod",
+                "startDate": "01/01/2021",
+                "endDate": "31/12/2025"
+            },*/
+            "temporalRange:@type": "TimePeriod",
+            "temporalRange:startDate": "01/01/2021",
+            "temporalRange:endDate": "31/12/2025",
+
+            /*"Distribution": {
+                "@id": `http://${hostname}/ld/courses/distributions/01`,
+                "@type": "Distribution",
+                "accessURL": `http://${hostname}/ld/courses`,
+                "mediaType": ["ianaMediaType:application/ld+json", "ianaMediaType:text/turtle", "ianaMediaType: text/n3", "ianaMediaType: text/csv"]
+            },*/
+            "Distribution:@id": `http://${hostname}/ld/courses/distributions/01`,
+            "Distribution:@type": "Distribution",
+            "Distribution:accessURL": `http://${hostname}/ld/courses`,
+            "Distribution:mediaType0": "ianaMediaType:application/ld+json",
+            "Distribution:mediaType1": "ianaMediaType:text/turtle",
+            "Distribution:mediaType2": "ianaMediaType: text/n3",
+            "Distribution:mediaType3": "ianaMediaType: text/csv"
+        }],
     };
 
     let dataset_courses = {
@@ -84,18 +117,73 @@ export async function getCatalog(req, res) {
             "startDate": "01/01/2021",
             "endDate": "31/12/2025"
         },
-        "dcat:distribution": {
+        "Distribution": {
             "@id": `http://${hostname}/ld/courses/distributions/01`,
             "@type": "Distribution",
             "accessURL": `http://${hostname}/ld/courses`,
             "mediaType": ["ianaMediaType:application/ld+json", "ianaMediaType:text/turtle", "ianaMediaType: text/n3", "ianaMediaType: text/csv"]
         }
     };
-    catalog['dataset'].push(dataset_courses);
+
+    // catalog['dataset'].push(dataset_courses);
     saveDatasets();
 
     res.header("Content-Type", "application/ld+json; charset=utf-8");
     res.json(catalog);
+}
+
+export async function getAPIDocumentation(req, res) {
+    let apiDocumentation = {
+        "@context": {
+            "hydra": "http://www.w3.org/ns/hydra/core#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "courseOntology": `http://${hostname}/ld/courses/ontology`
+        },
+        "@id": `http://${hostname}/ld/APIDocumentation`,
+        "@type": "hydra:Documentation",
+        "hydra:description": "Coursesld API documentation",
+        "hydra:entrypoint": `http://${hostname}/ld/courses`,
+        "hydra:supportedOperation": [
+            {
+                "hydra:method": "Get",
+                "hydra:return": "application/json",
+                "hydra:property": {
+                    "@type": "hydra:IriTemplate",
+                    "hydra:template": `http://${hostname}/ld/courses?startDate={startDateQuery}&subject={subjectQuery}`,
+                    "hydra:mapping": [{
+                        "@type": "hydra:IriTemplateMapping",
+                        "hydra:variable": "startDateQuery",
+                        "hydra:property": "courseOntology:startDateQuery",
+                        "rdfs:label": "field to compare the course start date",
+                        "hydra:required": false,
+                    }, {
+                        "@type": "hydra:IriTemplateMapping",
+                        "hydra:variable": "subjectQuery",
+                        "hydra:property": "courseOntology:subjectQuery",
+                        "rdfs:label": "field to compare the course subject",
+                        "hydra:required": false
+                    }
+                    ]
+                }
+            },
+            {
+                "hydra:method": "Get",
+                "hydra:return": "text/plain",
+            },
+            {
+                "hydra:method": "Get",
+                "hydra:return": "text/n3",
+            },
+            {
+                "hydra:method": "Get",
+                "hydra:return": "text/csv",
+            }
+        ]
+    }
+
+    res.header("Content-Type", "application/ld+json; charset=utf-8");
+    res.json(apiDocumentation);
 }
 function saveDatasets() {
     if (fs.existsSync('./files/raw_data/courses.json')) {
