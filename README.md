@@ -13,8 +13,8 @@
 	-config_files/server_config.js 
 		module.exports = {
 		    protocol: 'http',
-		    hostname: 'localhost:3000',
-		    port: 3000,
+		    hostname: 'localhost:4000',
+		    port: 4000,
 		}
     
  	-skeleton.jsonld (Hydra vocabulary template)
